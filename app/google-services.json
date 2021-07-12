@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "538053693729",
+    "project_id": "shop-manager-e603d",
+    "storage_bucket": "shop-manager-e603d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538053693729:android:92b6b36d25e9cfbb66ee60",
+        "android_client_info": {
+          "package_name": "com.example.shopmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538053693729-qro1b3orvu36nr1s9j0uvha0pu9mudpk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuqbrd3L6PAygKOOjyaV3JDqhNOhuL5OI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538053693729-qro1b3orvu36nr1s9j0uvha0pu9mudpk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

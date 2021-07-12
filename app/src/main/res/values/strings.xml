@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Shop Manager</string>
+
+    <string name="email_field">Email</string>
+    <string name="password_Field">Password</string>
+    <string name="name_field">Shop Name</string>
+
+    <string name="register_button">Register</string>
+    <string name="logon_button">Login</string>
+</resources>
