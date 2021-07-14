@@ -1,4 +1,4 @@
-package com.example.shopmanager;
+package com.example.shopmanager.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shopmanager.R;
 import com.example.shopmanager.constants.RequestCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -75,4 +76,5 @@ public class Logon extends AppCompatActivity {
             }
         }
     }
+
 }

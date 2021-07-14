@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".fragments.AddProduct">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <EditText
+            android:id="@+id/productNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/product_name_field"
+            android:inputType="textPersonName"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/productIdField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/product_id_field"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/productShelfField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/product_shelf_field"
+            android:inputType="textPersonName"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/productQuantityField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/product_quantity_field"
+            android:inputType="textPersonName"
+            android:importantForAutofill="no" />
+
+        <Button
+            android:id="@+id/addProductButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:background="@drawable/action_button"
+            android:onClick="addProduct"
+            android:text="@string/add_product_button" />
+    </LinearLayout>
+
+</FrameLayout>

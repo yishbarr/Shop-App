@@ -1,4 +1,4 @@
-package com.example.shopmanager;
+package com.example.shopmanager.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.shopmanager.asyncTasks.AddUser;
+import com.example.shopmanager.R;
+import com.example.shopmanager.asyncTasks.AddUserTask;
 import com.example.shopmanager.models.User;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -54,7 +55,7 @@ public class Register extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Intent intent = new Intent();
                         Log.d("Register", "Successful");
-                        new AddUser().execute(new User(email, shop, mAuth.getCurrentUser().getUid()));
+                        new AddUserTask().execute(new User(email, shop, mAuth.getCurrentUser().getUid()));
                         setResult(RESULT_OK, intent);
                         //Pass data to previous activity to log in and add to firebase.
                         intent.putExtra("EMAIL", email);

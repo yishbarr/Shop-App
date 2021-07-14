@@ -10,7 +10,7 @@ import com.example.shopmanager.models.User;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class AddUser extends AsyncTask<User, Void, Void> {
+public class AddUserTask extends AsyncTask<User, Void, Void> {
     @Override
     protected Void doInBackground(User... users) {
         try {
@@ -30,6 +30,6 @@ public class AddUser extends AsyncTask<User, Void, Void> {
     @Override
     protected void onPostExecute(Void unused) {
         super.onPostExecute(unused);
-        Log.d("Database", "Successful");
+        Log.d("Database", "Added User");
     }
 }

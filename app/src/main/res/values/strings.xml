@@ -7,4 +7,11 @@
 
     <string name="register_button">Register</string>
     <string name="logon_button">Login</string>
+
+    <string name="product_name_field">Name</string>
+    <string name="product_id_field">ID</string>
+    <string name="product_quantity_field">Current Quantity</string>
+    <string name="product_shelf_field">Shelf Number</string>
+    <string name="add_product_button">Add Product</string>
+
 </resources>

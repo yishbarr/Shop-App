@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class ServerConnection {
     private static final String ipAddress = "10.0.2.2";
-    private static final int port = 3000;
+    private static final int port = 8080;
     private final Socket socket;
     private final ObjectOutputStream toServer;
     private final ObjectInputStream fromServer;
