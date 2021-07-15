@@ -1,11 +1,11 @@
 package com.example.shopmanager.fragments;
 
 import android.os.Bundle;
-import android.util.MutableBoolean;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,14 +18,15 @@ import com.example.shopmanager.models.Product;
 import org.jetbrains.annotations.NotNull;
 
 public class AddProduct extends Fragment {
-    private static EditText nameField;
-    private static EditText idField;
-    private static EditText shelfField;
-    private static EditText quantityField;
-    private static MutableBoolean productAdded;
+    private EditText nameField;
+    private EditText idField;
+    private EditText shelfField;
+    private EditText quantityField;
+    private TextView notification;
 
-    public static void addProduct(View view) {
-        new AddProductTask(productAdded).execute(new Product(
+    public void addProduct(View view) {
+        //Async Task to add product
+        new AddProductTask(notification, this.getResources()).execute(new Product(
                 idField.getText().toString(),
                 nameField.getText().toString(),
                 Integer.parseInt(quantityField.getText().toString()),
@@ -46,7 +47,6 @@ public class AddProduct extends Fragment {
         idField = view.findViewById(R.id.productIdField);
         shelfField = view.findViewById(R.id.productShelfField);
         quantityField = view.findViewById(R.id.productQuantityField);
-
-        productAdded = new MutableBoolean(false);
+        notification = view.findViewById(R.id.productNotificationText);
     }
 }

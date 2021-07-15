@@ -21,10 +21,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Class to manage tabs
         tabAdaptor = new TabAdaptor(this);
         viewPager = findViewById(R.id.viewPager);
+        //Attach the tab manager to the View Pager.
         viewPager.setAdapter(tabAdaptor);
 
+        //Add all the tabs to the tab layout.
         TabLayout tabs = findViewById(R.id.tabs);
         new TabLayoutMediator(tabs, viewPager, (tab, position) -> {
             String tabName;
@@ -42,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
         }).attach();
     }
 
-    public void addProduct(View view){
-        AddProduct.addProduct(view);
+    //Function accessible from fragment.
+    public void addProduct(View view) {
+        ((AddProduct) tabAdaptor.getFragments().get(1)).addProduct(view);
     }
 
 }

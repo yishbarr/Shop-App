@@ -44,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:background="@drawable/action_button"
-        android:enabled="false"
         android:onClick="register"
         android:text="@string/register_button"
         android:textAllCaps="false" />

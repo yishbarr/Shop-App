@@ -6,14 +6,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ServerConnection {
-    private static final String ipAddress = "10.0.2.2";
-    private static final int port = 8080;
+    private final String IP_ADDRESS = "10.0.2.2";
+    private final int PORT = 8080;
     private final Socket socket;
     private final ObjectOutputStream toServer;
     private final ObjectInputStream fromServer;
 
     public ServerConnection() throws IOException {
-        this.socket = new Socket(ipAddress, port);
+        this.socket = new Socket(IP_ADDRESS, PORT);
         this.toServer = new ObjectOutputStream(socket.getOutputStream());
         this.fromServer = new ObjectInputStream(socket.getInputStream());
     }

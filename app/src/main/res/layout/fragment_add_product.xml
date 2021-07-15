@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/product_name_field"
-            android:inputType="textPersonName"
+            android:inputType="text"
             tools:ignore="Autofill" />
 
         <EditText
@@ -31,7 +31,7 @@
             android:ems="10"
             android:hint="@string/product_id_field"
             android:importantForAutofill="no"
-            android:inputType="textPersonName" />
+            android:inputType="number"/>
 
         <EditText
             android:id="@+id/productShelfField"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/product_shelf_field"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:importantForAutofill="no" />
 
         <EditText
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/product_quantity_field"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:importantForAutofill="no" />
 
         <Button
@@ -59,6 +59,14 @@
             android:background="@drawable/action_button"
             android:onClick="addProduct"
             android:text="@string/add_product_button" />
+
+        <TextView
+            android:id="@+id/productNotificationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:visibility="gone" />
     </LinearLayout>
 
 </FrameLayout>

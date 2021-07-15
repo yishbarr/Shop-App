@@ -3,4 +3,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ProductList"/>
+    android:background="@color/product_list_background"
+    tools:context=".fragments.ProductList">
+
+    <ScrollView
+        android:id="@+id/productsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:id="@+id/productsTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="6">
+
+            <TableRow
+                android:id="@+id/productsDetails"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.166666667"
+                    android:gravity="center"
+                    android:text="@string/product_id_field"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.166666667"
+                    android:gravity="center"
+                    android:text="@string/name_field"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.166666667"
+                    android:gravity="center"
+                    android:text="@string/product_quantity_field"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shelf"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.166666667"
+                    android:gravity="center"
+                    android:text="@string/product_shelf_field"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.166666667"
+                    android:gravity="center"
+                    android:text="@string/edit_product_button"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.166666667"
+                    android:gravity="center"
+                    android:text="@string/delete_product_button"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </TableRow>
+        </TableLayout>
+        <!--        <Button-->
+        <!--            android:id="@+id/editButton"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="?android:attr/colorActivatedHighlight"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="@string/Edit"-->
+        <!--            android:textSize="15sp" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/deleteButton"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@color/design_default_color_error"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="@string/Delete"-->
+        <!--            android:textSize="15sp" />-->
+    </ScrollView>
+</FrameLayout>

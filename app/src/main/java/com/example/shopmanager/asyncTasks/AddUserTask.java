@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.shopmanager.connection.ServerConnection;
+import com.example.shopmanager.constants.LogTags;
 import com.example.shopmanager.constants.ServerRequests;
 import com.example.shopmanager.models.User;
 
@@ -14,12 +15,16 @@ public class AddUserTask extends AsyncTask<User, Void, Void> {
     @Override
     protected Void doInBackground(User... users) {
         try {
+            //Server connection
             ServerConnection connection = new ServerConnection();
             ObjectOutputStream toServer = connection.getToServer();
+            //Request type
             toServer.writeObject(ServerRequests.addAccount.toString());
+            //Send user properties
             toServer.writeObject(users[0].email);
             toServer.writeObject(users[0].shop);
             toServer.writeObject(users[0].uid);
+            //Close socket
             connection.getSocket().close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,6 +35,6 @@ public class AddUserTask extends AsyncTask<User, Void, Void> {
     @Override
     protected void onPostExecute(Void unused) {
         super.onPostExecute(unused);
-        Log.d("Database", "Added User");
+        Log.d(LogTags.DATABASE.toString(), "Added User");
     }
 }

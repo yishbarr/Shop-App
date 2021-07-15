@@ -10,4 +10,9 @@
     <color name="background">#200a66</color>
     <color name="submit">#077518</color>
     <color name="action">#c20808</color>
+
+    <color name="success">#07730B</color>
+    <color name="failure">#CC0E0E</color>
+
+    <color name="product_list_background">#3f51b5</color>
 </resources>
