@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class AddUserTask extends AsyncTask<User, Void, Void> {
+    public AddUserTask() {
+        super();
+    }
+
     @Override
     protected Void doInBackground(User... users) {
         try {

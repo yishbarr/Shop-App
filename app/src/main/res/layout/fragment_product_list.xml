@@ -9,7 +9,8 @@
     <ScrollView
         android:id="@+id/productsScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <TableLayout
             android:id="@+id/productsTable"
@@ -26,8 +27,8 @@
                     android:id="@+id/id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.166666667"
-                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start"
                     android:text="@string/product_id_field"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
@@ -36,9 +37,9 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.166666667"
-                    android:gravity="center"
-                    android:text="@string/name_field"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start"
+                    android:text="@string/product_name_field"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -46,8 +47,8 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.166666667"
-                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start"
                     android:text="@string/product_quantity_field"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
@@ -56,8 +57,8 @@
                     android:id="@+id/shelf"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.166666667"
-                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start"
                     android:text="@string/product_shelf_field"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
@@ -66,8 +67,8 @@
                     android:id="@+id/edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.166666667"
-                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start"
                     android:text="@string/edit_product_button"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
@@ -76,8 +77,8 @@
                     android:id="@+id/delete"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.166666667"
-                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start"
                     android:text="@string/delete_product_button"
                     android:textColor="@color/white"
                     android:textSize="20sp" />

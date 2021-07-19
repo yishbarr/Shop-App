@@ -10,15 +10,9 @@ import com.example.shopmanager.fragments.ProductList;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TabAdaptor extends FragmentStateAdapter {
-    private final List<Fragment> fragments;
-
     public TabAdaptor(@NonNull @NotNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
-        fragments = new ArrayList<>();
     }
 
     @NonNull
@@ -34,16 +28,12 @@ public class TabAdaptor extends FragmentStateAdapter {
                 fragment = new ProductList();
                 break;
         }
-        fragments.add(fragment);
         return fragment;
     }
 
     @Override
     public int getItemCount() {
-        return fragments.size();
+        return 2;
     }
 
-    public List<Fragment> getFragments() {
-        return fragments;
-    }
 }

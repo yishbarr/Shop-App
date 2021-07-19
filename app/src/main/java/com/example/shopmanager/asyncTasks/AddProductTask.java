@@ -13,39 +13,56 @@ import com.example.shopmanager.constants.ServerRequests;
 import com.example.shopmanager.constants.ServerResponses;
 import com.example.shopmanager.models.Product;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
 
 public class AddProductTask extends AsyncTask<Product, Void, Integer> {
-    public final int DATABASE_FAILED = ServerResponses.DATABASE_FAILED.getResponse();
-    private final WeakReference<TextView> notification;
-    private final WeakReference<Resources> resources;
+    private static final int WAITING = 10;
+    private final int DATABASE_FAILED = ServerResponses.DATABASE_FAILED.getResponse();
+    private final Resources resources;
+    private final WeakReference<TextView> safeNotification;
+    private String uid;
 
-    public AddProductTask(TextView notification, Resources resources) {
-        this.notification = new WeakReference<>(notification);
-        this.resources = new WeakReference<>(resources);
+    public AddProductTask(TextView notification, Resources resources, String uid) {
+        super();
+        safeNotification = new WeakReference<>(notification);
+        this.uid = uid;
+        WeakReference<Resources> safeResources = new WeakReference<>(resources);
+        this.resources = safeResources.get();
     }
 
     @Override
     protected Integer doInBackground(Product... products) {
         int success = DATABASE_FAILED;
+        JSONObject productObject = new JSONObject();
+        try {
+            productObject.put("name", products[0].name);
+            productObject.put("id", products[0].id);
+            productObject.put("quantity", products[0].quantity);
+            productObject.put("shelf", products[0].shelf);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         try {
             //Server connection
             ServerConnection connection = new ServerConnection();
             ObjectOutputStream toServer = connection.getToServer();
             //Request type
             toServer.writeObject(ServerRequests.addProduct.toString());
-            //Send all properties of the product.
-            toServer.writeObject(products[0].name);
-            toServer.writeObject(products[0].id);
-            toServer.writeInt(products[0].quantity);
-            toServer.writeInt(products[0].shelf);
-            //Response number
-            success = connection.getFromServer().readInt();
-            //Close socket
+            //Send the product object.
+            toServer.writeObject(productObject.toString());
+            //Send UID
+            toServer.writeObject(uid);
+            Object successObj = connection.getFromServer().readObject();
+            success = (int) successObj;
             connection.getSocket().close();
-        } catch (IOException e) {
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return success;
@@ -56,19 +73,19 @@ public class AddProductTask extends AsyncTask<Product, Void, Integer> {
         super.onPostExecute(integer);
         String DATABASE_TAG = LogTags.DATABASE.toString();
         //Error or Success message for user and for developer.
-        if (integer == ServerResponses.SUCCESS.getResponse()) {
+        if (integer == ServerResponses.ID_EXISTS.getResponse()) {
+            Log.d(DATABASE_TAG, "ID exists.");
+            safeNotification.get().setText(R.string.add_product_id_exists);
+            safeNotification.get().setTextColor(resources.getColor(R.color.failure));
+        } else if (integer == ServerResponses.SUCCESS.getResponse()) {
             Log.d(DATABASE_TAG, "Added Product.");
-            notification.get().setText(R.string.add_product_success);
-            notification.get().setTextColor(resources.get().getColor(R.color.success));
-        } else if (integer == ServerResponses.DATABASE_FAILED.getResponse()) {
+            safeNotification.get().setText(R.string.add_product_success);
+            safeNotification.get().setTextColor(resources.getColor(R.color.success));
+        } else {
             Log.w(DATABASE_TAG, "Adding Product failed.");
-            notification.get().setText(R.string.add_product_failure);
-            notification.get().setTextColor(resources.get().getColor(R.color.failure));
-        } else if (integer == ServerResponses.ID_EXISTS.getResponse()) {
-            Log.w(DATABASE_TAG, "ID already exists.");
-            notification.get().setText(R.string.add_product_id_exists);
-            notification.get().setTextColor(resources.get().getColor(R.color.failure));
+            safeNotification.get().setText(R.string.add_product_failure);
+            safeNotification.get().setTextColor(resources.getColor(R.color.failure));
         }
-        notification.get().setVisibility(View.VISIBLE);
+        safeNotification.get().setVisibility(View.VISIBLE);
     }
 }

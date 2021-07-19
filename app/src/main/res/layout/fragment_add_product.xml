@@ -31,7 +31,7 @@
             android:ems="10"
             android:hint="@string/product_id_field"
             android:importantForAutofill="no"
-            android:inputType="number"/>
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/productShelfField"
@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/product_shelf_field"
-            android:inputType="number"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/productQuantityField"
@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/product_quantity_field"
-            android:inputType="text"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:inputType="number" />
 
         <Button
             android:id="@+id/addProductButton"

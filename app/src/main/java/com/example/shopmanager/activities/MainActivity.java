@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shopmanager.R;
@@ -11,6 +12,9 @@ import com.example.shopmanager.fragments.AddProduct;
 import com.example.shopmanager.tabManagement.TabAdaptor;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private TabAdaptor tabAdaptor;
@@ -20,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //Class to manage tabs
         tabAdaptor = new TabAdaptor(this);
         viewPager = findViewById(R.id.viewPager);
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Function accessible from fragment.
     public void addProduct(View view) {
-        ((AddProduct) tabAdaptor.getFragments().get(1)).addProduct(view);
+        ((AddProduct) getSupportFragmentManager().findFragmentByTag("f1")).addProduct(view);
     }
 
 }
