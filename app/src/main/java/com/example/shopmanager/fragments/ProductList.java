@@ -40,7 +40,11 @@ public class ProductList extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        new GetProductsTask(getContext(), getView().findViewById(R.id.productsTable), getResources()).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+        new GetProductsTask(getContext(),
+                Objects.requireNonNull(getView()).findViewById(R.id.productsTable),
+                getResources(),
+                Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 }

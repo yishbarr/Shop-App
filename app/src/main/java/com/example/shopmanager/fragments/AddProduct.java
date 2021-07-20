@@ -1,5 +1,6 @@
 package com.example.shopmanager.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,8 +32,18 @@ public class AddProduct extends Fragment {
     private FirebaseAuth mAuth;
 
     public void addProduct(View view) {
+        notification.setVisibility(View.GONE);
+        if (nameField.getText().toString().length() == 0 ||
+                idField.getText().toString().length() == 0 ||
+                shelfField.getText().toString().length() == 0 ||
+                quantityField.getText().toString().length() == 0) {
+            notification.setText(R.string.add_product_empty_field);
+            notification.setVisibility(View.VISIBLE);
+            notification.setTextColor(getResources().getColor(R.color.failure));
+            return;
+        }
         //Async Task to add product
-        new AddProductTask(notification, this.getResources(), mAuth.getCurrentUser().getUid())
+        new AddProductTask(notification, this.getResources(), Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                 .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Product(
                         idField.getText().toString(),
                         nameField.getText().toString(),
@@ -59,6 +70,7 @@ public class AddProduct extends Fragment {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     public void onResume() {
         super.onResume();

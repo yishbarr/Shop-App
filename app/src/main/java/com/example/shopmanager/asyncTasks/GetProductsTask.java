@@ -1,6 +1,7 @@
 package com.example.shopmanager.asyncTasks;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.shopmanager.R;
 import com.example.shopmanager.connection.ServerConnection;
 import com.example.shopmanager.constants.LogTags;
 import com.example.shopmanager.constants.ServerRequests;
@@ -25,26 +27,22 @@ import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-public class GetProductsTask extends AsyncTask<String, Void, Map<String, Map<String, String>>> {
+public class GetProductsTask extends AsyncTask<Void, Void, Map<String, Map<String, String>>> {
     private final WeakReference<Context> safeContext;
     private final WeakReference<TableLayout> safeTable;
     private final WeakReference<Resources> safeResources;
+    private final String uid;
 
-    public GetProductsTask(Context context, TableLayout table, Resources resources) {
+    public GetProductsTask(Context context, TableLayout table, Resources resources, String uid) {
         super();
         safeContext = new WeakReference<>(context);
         this.safeTable = new WeakReference<>(table);
         this.safeResources = new WeakReference<>(resources);
+        this.uid = uid;
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    protected Map<String, Map<String, String>> doInBackground(String... strings) {
+    protected Map<String, Map<String, String>> doInBackground(Void... voids) {
         Map<String, Map<String, String>> products;
         try {
             //Server connection
@@ -53,7 +51,7 @@ public class GetProductsTask extends AsyncTask<String, Void, Map<String, Map<Str
             //Request type
             toServer.writeObject(ServerRequests.getProducts.toString());
             //UID of user.
-            toServer.writeObject(strings[0]);
+            toServer.writeObject(uid);
             ObjectInputStream fromServer = connection.getFromServer();
             //Map of products
             products = (Map<String, Map<String, String>>) fromServer.readObject();
@@ -65,6 +63,7 @@ public class GetProductsTask extends AsyncTask<String, Void, Map<String, Map<Str
         return null;
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onPostExecute(Map<String, Map<String, String>> products) {
@@ -73,7 +72,7 @@ public class GetProductsTask extends AsyncTask<String, Void, Map<String, Map<Str
         if (products != null) {
             //Add products to table
             //Turn dp into px
-            int marginStart = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, safeResources.get().getDisplayMetrics());
+            int marginStart = dpToPx(20);
             products.forEach((key, product) -> {
                 TableRow row = new TableRow(safeContext.get());
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
@@ -105,24 +104,35 @@ public class GetProductsTask extends AsyncTask<String, Void, Map<String, Map<Str
                     textLayoutParams.setMarginStart(marginStart);
                     text.setLayoutParams(textLayoutParams);
                 }
+                int textSize = dpToPx(5);
                 Button edit = new Button(safeContext.get());
                 edit.setOnClickListener(view -> {
 
                 });
+                edit.setBackgroundColor(safeResources.get().getColor(R.color.submit));
+                edit.setText(R.string.edit_product_button);
+                edit.setBackgroundTintList(ColorStateList.valueOf(safeResources.get().getColor(R.color.submit)));
                 row.addView(edit);
                 ViewGroup.MarginLayoutParams buttonLayoutParams = (ViewGroup.MarginLayoutParams) edit.getLayoutParams();
                 buttonLayoutParams.setMarginStart(marginStart);
+                buttonLayoutParams.bottomMargin = 2;
                 edit.setLayoutParams(buttonLayoutParams);
+                edit.setTextSize(textSize);
                 Button delete = new Button(safeContext.get());
                 row.addView(delete);
                 delete.setLayoutParams(buttonLayoutParams);
-                delete.setOnClickListener(view -> {
-
-                });
+                delete.setOnClickListener(view -> new DeleteProductTask(row).execute(textArr[0].getText().toString(), uid));
+                delete.setBackgroundColor(safeResources.get().getColor(R.color.action));
+                delete.setText(R.string.delete_product_button);
+                delete.setTextSize(textSize);
             });
 
         } else {
             Log.w(DATABASE_TAG, "Failed to get products.");
         }
+    }
+
+    private int dpToPx(int px) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, safeResources.get().getDisplayMetrics());
     }
 }

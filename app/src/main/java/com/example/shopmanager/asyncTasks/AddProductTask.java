@@ -21,11 +21,10 @@ import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
 
 public class AddProductTask extends AsyncTask<Product, Void, Integer> {
-    private static final int WAITING = 10;
     private final int DATABASE_FAILED = ServerResponses.DATABASE_FAILED.getResponse();
     private final Resources resources;
     private final WeakReference<TextView> safeNotification;
-    private String uid;
+    private final String uid;
 
     public AddProductTask(TextView notification, Resources resources, String uid) {
         super();
