@@ -1,6 +1,7 @@
 package com.example.shopmanager.asyncTasks;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import com.example.shopmanager.R;
+import com.example.shopmanager.activities.EditProduct;
 import com.example.shopmanager.connection.ServerConnection;
 import com.example.shopmanager.constants.LogTags;
 import com.example.shopmanager.constants.ServerRequests;
@@ -73,11 +75,13 @@ public class GetProductsTask extends AsyncTask<Void, Void, Map<String, Map<Strin
             //Add products to table
             //Turn dp into px
             int marginStart = dpToPx(20);
+            //Set up each row with details and action buttons.
             products.forEach((key, product) -> {
                 TableRow row = new TableRow(safeContext.get());
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 row.setLayoutParams(layoutParams);
                 TextView[] textArr = new TextView[4];
+                Intent intent = new Intent(safeContext.get(), EditProduct.class);
                 product.forEach((pKey, prop) -> {
                     TextView text = new TextView(safeContext.get());
                     text.setText(prop);
@@ -85,15 +89,19 @@ public class GetProductsTask extends AsyncTask<Void, Void, Map<String, Map<Strin
                     switch (pKey) {
                         case "id":
                             textArr[0] = text;
+                            intent.putExtra("id", prop);
                             break;
                         case "name":
                             textArr[1] = text;
+                            intent.putExtra("name", prop);
                             break;
                         case "quantity":
                             textArr[2] = text;
+                            intent.putExtra("quantity", prop);
                             break;
                         case "shelf":
                             textArr[3] = text;
+                            intent.putExtra("shelf", prop);
                             break;
                     }
                 });
@@ -105,10 +113,9 @@ public class GetProductsTask extends AsyncTask<Void, Void, Map<String, Map<Strin
                     text.setLayoutParams(textLayoutParams);
                 }
                 int textSize = dpToPx(5);
+                //Edit Button
                 Button edit = new Button(safeContext.get());
-                edit.setOnClickListener(view -> {
-
-                });
+                edit.setOnClickListener(view -> safeContext.get().startActivity(intent));
                 edit.setBackgroundColor(safeResources.get().getColor(R.color.submit));
                 edit.setText(R.string.edit_product_button);
                 edit.setBackgroundTintList(ColorStateList.valueOf(safeResources.get().getColor(R.color.submit)));
@@ -118,6 +125,7 @@ public class GetProductsTask extends AsyncTask<Void, Void, Map<String, Map<Strin
                 buttonLayoutParams.bottomMargin = 2;
                 edit.setLayoutParams(buttonLayoutParams);
                 edit.setTextSize(textSize);
+                //Delete Button
                 Button delete = new Button(safeContext.get());
                 row.addView(delete);
                 delete.setLayoutParams(buttonLayoutParams);
@@ -132,6 +140,7 @@ public class GetProductsTask extends AsyncTask<Void, Void, Map<String, Map<Strin
         }
     }
 
+    //Turn dp into px.
     private int dpToPx(int px) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, safeResources.get().getDisplayMetrics());
     }

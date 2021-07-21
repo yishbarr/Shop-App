@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopManager">
-        <activity android:name=".activities.Register"></activity>
-        <activity android:name=".activities.Logon">
+        <activity
+            android:name=".activities.EditProduct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.Register"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.Logon"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

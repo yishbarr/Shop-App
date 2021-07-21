@@ -34,14 +34,6 @@ public class Register extends AppCompatActivity {
         shopField = findViewById(R.id.shopFieldReg);
 
         mAuth = FirebaseAuth.getInstance();
-        /*mAuth.signInAnonymously()
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        findViewById(R.id.registerAction).setEnabled(true);
-                    } else {
-                        Log.w("Anonymous Logon", "Failed");
-                    }
-                });*/
     }
 
     public void register(View view) {

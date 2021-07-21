@@ -1,9 +1,11 @@
 package com.example.shopmanager.asyncTasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.TableRow;
 
 import com.example.shopmanager.connection.ServerConnection;
+import com.example.shopmanager.constants.LogTags;
 import com.example.shopmanager.constants.ServerRequests;
 
 import java.io.IOException;
@@ -20,10 +22,11 @@ public class DeleteProductTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
-        //Server connection
+        //Server connection to delete from Firebase.
         try {
             ServerConnection connection = new ServerConnection();
             ObjectOutputStream toServer = connection.getToServer();
+            //Request type
             toServer.writeObject(ServerRequests.deleteProduct.toString());
             toServer.writeObject(strings[0]);
             toServer.writeObject(strings[1]);
@@ -38,5 +41,6 @@ public class DeleteProductTask extends AsyncTask<String, Void, Void> {
     protected void onPostExecute(Void unused) {
         super.onPostExecute(unused);
         safeRow.get().removeAllViews();
+        Log.d(LogTags.DATABASE.toString(), "Deleted product.");
     }
 }

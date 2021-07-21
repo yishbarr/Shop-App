@@ -21,7 +21,7 @@ import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
 
 public class AddProductTask extends AsyncTask<Product, Void, Integer> {
-    private final int DATABASE_FAILED = ServerResponses.DATABASE_FAILED.getResponse();
+    private final int DATABASE_FAILED = ServerResponses.DATABASE_FAILED.ordinal();
     private final Resources resources;
     private final WeakReference<TextView> safeNotification;
     private final String uid;
@@ -43,11 +43,7 @@ public class AddProductTask extends AsyncTask<Product, Void, Integer> {
             productObject.put("id", products[0].id);
             productObject.put("quantity", products[0].quantity);
             productObject.put("shelf", products[0].shelf);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        try {
             //Server connection
             ServerConnection connection = new ServerConnection();
             ObjectOutputStream toServer = connection.getToServer();
@@ -57,11 +53,10 @@ public class AddProductTask extends AsyncTask<Product, Void, Integer> {
             toServer.writeObject(productObject.toString());
             //Send UID
             toServer.writeObject(uid);
-            Object successObj = connection.getFromServer().readObject();
-            success = (int) successObj;
+            success = connection.getFromServer().readInt();
             connection.getSocket().close();
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         return success;
@@ -72,11 +67,11 @@ public class AddProductTask extends AsyncTask<Product, Void, Integer> {
         super.onPostExecute(integer);
         String DATABASE_TAG = LogTags.DATABASE.toString();
         //Error or Success message for user and for developer.
-        if (integer == ServerResponses.ID_EXISTS.getResponse()) {
+        if (integer == ServerResponses.ID_EXISTS.ordinal()) {
             Log.d(DATABASE_TAG, "ID exists.");
             safeNotification.get().setText(R.string.add_product_id_exists);
             safeNotification.get().setTextColor(resources.getColor(R.color.failure));
-        } else if (integer == ServerResponses.SUCCESS.getResponse()) {
+        } else if (integer == ServerResponses.SUCCESS.ordinal()) {
             Log.d(DATABASE_TAG, "Added Product.");
             safeNotification.get().setText(R.string.add_product_success);
             safeNotification.get().setTextColor(resources.getColor(R.color.success));

@@ -14,6 +14,8 @@
     <string name="product_shelf_field">Shelf Number</string>
     <string name="add_product_button">Add Product</string>
 
+    <string name="update_product_button">Update Product</string>
+
     <string name="add_product_success">Successfully added product.</string>
     <string name="add_product_failure">Failed to add product. Check your connection or for duplicate IDs.</string>
     <string name="add_product_id_exists">Product ID already exists.</string>

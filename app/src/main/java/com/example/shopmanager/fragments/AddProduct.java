@@ -31,12 +31,14 @@ public class AddProduct extends Fragment {
     private TextView notification;
     private FirebaseAuth mAuth;
 
+    //Add product
     public void addProduct(View view) {
         notification.setVisibility(View.GONE);
-        if (nameField.getText().toString().length() == 0 ||
-                idField.getText().toString().length() == 0 ||
-                shelfField.getText().toString().length() == 0 ||
-                quantityField.getText().toString().length() == 0) {
+        String name = nameField.getText().toString();
+        String id = idField.getText().toString();
+        int shelf = Integer.parseInt(shelfField.getText().toString());
+        int quantity = Integer.parseInt(quantityField.getText().toString());
+        if (name.length() == 0 || id.length() == 0 || (shelf + "").length() == 0 || (quantity + "").length() == 0) {
             notification.setText(R.string.add_product_empty_field);
             notification.setVisibility(View.VISIBLE);
             notification.setTextColor(getResources().getColor(R.color.failure));
@@ -44,11 +46,7 @@ public class AddProduct extends Fragment {
         }
         //Async Task to add product
         new AddProductTask(notification, this.getResources(), Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Product(
-                        idField.getText().toString(),
-                        nameField.getText().toString(),
-                        Integer.parseInt(quantityField.getText().toString()),
-                        Integer.parseInt(shelfField.getText().toString())));
+                .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Product(id, name, quantity, shelf));
     }
 
     @Override
