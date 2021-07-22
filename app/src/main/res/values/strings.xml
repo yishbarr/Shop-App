@@ -21,6 +21,8 @@
     <string name="add_product_id_exists">Product ID already exists.</string>
     <string name="add_product_empty_field">Please validate the fields.</string>
 
+    <string name="update_product_success">Successfully updated product.</string>
+
     <string name="edit_product_button">Edit</string>
     <string name="delete_product_button">Delete</string>
 

@@ -36,7 +36,7 @@ public class AddProductTask extends AsyncTask<Product, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Product... products) {
-        int success = DATABASE_FAILED;
+        int success = 0;
         JSONObject productObject = new JSONObject();
         try {
             productObject.put("name", products[0].name);

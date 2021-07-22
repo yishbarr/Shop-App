@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +23,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class ProductList extends Fragment {
+    private TableLayout productsTable;
+    private TableRow productsHeader;
     private FirebaseAuth mAuth;
 
     @Override
@@ -34,14 +38,18 @@ public class ProductList extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        productsTable = view.findViewById(R.id.productsTable);
+        productsHeader = view.findViewById(R.id.productsDetails);
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     public void onResume() {
+        productsTable.removeAllViews();
+        productsTable.addView(productsHeader);
         super.onResume();
         new GetProductsTask(getContext(),
-                Objects.requireNonNull(getView()).findViewById(R.id.productsTable),
+                productsTable,
                 getResources(),
                 Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                 .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);

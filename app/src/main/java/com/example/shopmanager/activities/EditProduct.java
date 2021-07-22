@@ -40,11 +40,17 @@ public class EditProduct extends AppCompatActivity {
     }
 
     public void updateProduct(View view) {
+        notification.setVisibility(View.GONE);
         String name = nameField.getText().toString();
-        int shelf = Integer.parseInt(shelfField.getText().toString());
-        int quantity = Integer.parseInt(quantityField.getText().toString());
-        if (name.length() == 0 || (shelf + "").length() == 0 || (quantity + "").length() == 0)
+        String shelf = shelfField.getText().toString();
+        String quantity = quantityField.getText().toString();
+        if (name.length() == 0 || shelf.length() == 0 || quantity.length() == 0) {
+            notification.setText(R.string.add_product_empty_field);
+            notification.setTextColor(getResources().getColor(R.color.failure));
+            notification.setVisibility(View.VISIBLE);
             return;
-        new UpdateProductTask(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Product(id, name, quantity, shelf));
+        }
+        new UpdateProductTask(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), notification, getResources())
+                .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Product(id, name, Integer.parseInt(quantity), Integer.parseInt(shelf)));
     }
 }

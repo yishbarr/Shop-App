@@ -36,9 +36,9 @@ public class AddProduct extends Fragment {
         notification.setVisibility(View.GONE);
         String name = nameField.getText().toString();
         String id = idField.getText().toString();
-        int shelf = Integer.parseInt(shelfField.getText().toString());
-        int quantity = Integer.parseInt(quantityField.getText().toString());
-        if (name.length() == 0 || id.length() == 0 || (shelf + "").length() == 0 || (quantity + "").length() == 0) {
+        String shelf = shelfField.getText().toString();
+        String quantity = quantityField.getText().toString();
+        if (name.length() == 0 || id.length() == 0 || shelf.length() == 0 || quantity.length() == 0) {
             notification.setText(R.string.add_product_empty_field);
             notification.setVisibility(View.VISIBLE);
             notification.setTextColor(getResources().getColor(R.color.failure));
@@ -46,7 +46,7 @@ public class AddProduct extends Fragment {
         }
         //Async Task to add product
         new AddProductTask(notification, this.getResources(), Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Product(id, name, quantity, shelf));
+                .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Product(id, name, Integer.parseInt(quantity), Integer.parseInt(shelf)));
     }
 
     @Override

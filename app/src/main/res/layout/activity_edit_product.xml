@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:labelFor="@id/productNameField"
+            android:maxLength="12"
             android:text="@string/product_name_field"
             android:textSize="16sp" />
 
@@ -45,7 +46,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:importantForAutofill="no"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="5" />
 
         <TextView
             android:layout_width="match_parent"
@@ -61,7 +63,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:importantForAutofill="no"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="5" />
 
         <Button
             android:id="@+id/addProductButton"
