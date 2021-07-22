@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.example.shopmanager.R;
 import com.example.shopmanager.connection.ServerConnection;
 import com.example.shopmanager.constants.ServerRequests;
+import com.example.shopmanager.constants.TaskResponses;
 import com.example.shopmanager.models.Product;
 
 import org.json.JSONException;
@@ -18,9 +19,10 @@ import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
 
 public class UpdateProductTask extends AsyncTask<Product, Void, Integer> {
+    private final int SUCCESS = TaskResponses.SUCCESS.ordinal();
     private final String uid;
-    private WeakReference<TextView> safeNotification;
-    private WeakReference<Resources> safeResources;
+    private final WeakReference<TextView> safeNotification;
+    private final WeakReference<Resources> safeResources;
 
     public UpdateProductTask(String uid, TextView notification, Resources resources) {
         super();
@@ -31,6 +33,7 @@ public class UpdateProductTask extends AsyncTask<Product, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Product... products) {
+        int success = TaskResponses.DATABASE_FAILED.ordinal();
         //Build JSON
         JSONObject productObject = new JSONObject();
         try {
@@ -46,18 +49,24 @@ public class UpdateProductTask extends AsyncTask<Product, Void, Integer> {
             toServer.writeObject(ServerRequests.updateProduct.toString());
             toServer.writeObject(productObject.toString());
             toServer.writeObject(uid);
+            success = SUCCESS;
             connection.getSocket().close();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return success;
     }
 
     @Override
     protected void onPostExecute(Integer integer) {
         super.onPostExecute(integer);
-        safeNotification.get().setText(R.string.update_product_success);
-        safeNotification.get().setTextColor(safeResources.get().getColor(R.color.success));
         safeNotification.get().setVisibility(View.VISIBLE);
+        if (integer == SUCCESS) {
+            safeNotification.get().setText(R.string.update_product_success);
+            safeNotification.get().setTextColor(safeResources.get().getColor(R.color.success));
+        } else {
+            safeNotification.get().setText(R.string.update_product_failure);
+            safeNotification.get().setTextColor(safeResources.get().getColor(R.color.failure));
+        }
     }
 }

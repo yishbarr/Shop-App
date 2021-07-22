@@ -1,6 +1,6 @@
 package com.example.shopmanager.constants;
 
-public enum ServerResponses {
+public enum TaskResponses {
     SUCCESS,
     DATABASE_FAILED,
     ID_EXISTS

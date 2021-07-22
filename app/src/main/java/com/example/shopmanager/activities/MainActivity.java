@@ -12,9 +12,17 @@ import com.example.shopmanager.tabManagement.TabAdaptor;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    private List<String> usedIds;
+
+    public List<String> getUsedIds() {
+        return usedIds;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
             }
             tab.setText(tabName);
         }).attach();
+
+        usedIds = new ArrayList<>();
     }
 
     //Function accessible from fragment.

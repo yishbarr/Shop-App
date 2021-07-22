@@ -22,8 +22,12 @@
     <string name="add_product_empty_field">Please validate the fields.</string>
 
     <string name="update_product_success">Successfully updated product.</string>
+    <string name="update_product_failure">Failed to update product.</string>
 
     <string name="edit_product_button">Edit</string>
     <string name="delete_product_button">Delete</string>
+
+    <string name="login_fail">Login Failed</string>
+    <string name="register_fail">Registration Failed</string>
 
 </resources>

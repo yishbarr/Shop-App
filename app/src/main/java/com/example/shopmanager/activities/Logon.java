@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class Logon extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText emailField;
     private EditText passwordField;
+    private TextView notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class Logon extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         emailField = findViewById(R.id.userField);
         passwordField = findViewById(R.id.passwordField);
+        notification=findViewById(R.id.notification);
     }
 
     //Login with user input
@@ -36,6 +39,7 @@ public class Logon extends AppCompatActivity {
         String password = passwordField.getText().toString();
         if (email.length() > 0 && password.length() > 0)
             logon(email, password);
+        else notification.setVisibility(View.VISIBLE);
     }
 
     //Login with credentials
@@ -44,9 +48,11 @@ public class Logon extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Log.d(LOGON_TAG, "Successful");
+                        notification.setVisibility(View.INVISIBLE);
                         startActivity(new Intent(this, MainActivity.class));
                     } else {
                         Log.w(LOGON_TAG, "Failed");
+                        notification.setVisibility(View.VISIBLE);
                     }
                 });
     }
