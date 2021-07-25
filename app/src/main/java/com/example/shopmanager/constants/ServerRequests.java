@@ -5,5 +5,6 @@ public enum ServerRequests {
     addProduct,
     getProducts,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getIds
 }

@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.shopmanager.R;
-import com.example.shopmanager.activities.MainActivity;
 import com.example.shopmanager.asyncTasks.AddProductTask;
 import com.example.shopmanager.models.Product;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +45,7 @@ public class AddProduct extends Fragment {
             return;
         }
         //Async Task to add product
-        new AddProductTask(notification, this.getResources(), Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), ((MainActivity) getActivity()).getUsedIds())
+        new AddProductTask(notification, this.getResources(), Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                 .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Product(id, name, Integer.parseInt(quantity), Integer.parseInt(shelf)));
     }
 

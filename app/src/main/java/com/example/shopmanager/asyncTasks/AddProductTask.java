@@ -22,21 +22,19 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
-import java.util.List;
+import java.util.ArrayList;
 
 public class AddProductTask extends AsyncTask<Product, Void, Integer> {
     private final int ID_EXISTS = TaskResponses.ID_EXISTS.ordinal();
     private final int SUCCESS = TaskResponses.SUCCESS.ordinal();
     private final WeakReference<Resources> safeResources;
     private final WeakReference<TextView> safeNotification;
-    private final WeakReference<List<String>> safeUsedIds;
     private final String uid;
 
-    public AddProductTask(TextView notification, Resources resources, String uid, List<String> usedIds) {
+    public AddProductTask(TextView notification, Resources resources, String uid) {
         super();
         safeNotification = new WeakReference<>(notification);
         safeResources = new WeakReference<>(resources);
-        safeUsedIds = new WeakReference<>(usedIds);
         this.uid = uid;
     }
 
@@ -45,20 +43,28 @@ public class AddProductTask extends AsyncTask<Product, Void, Integer> {
     protected Integer doInBackground(Product... products) {
         int success = TaskResponses.DATABASE_FAILED.ordinal();
         String id = products[0].id;
-        for (String usedId : safeUsedIds.get()) {
-            if (usedId.contentEquals(id))
-                return ID_EXISTS;
-        }
+
         JSONObject productObject = new JSONObject();
         try {
+            //Server connection to check id
+            ServerConnection connection = new ServerConnection();
+            ObjectOutputStream toServer = connection.getToServer();
+            toServer.writeObject(ServerRequests.getIds.toString());
+            toServer.writeObject(uid);
+            ArrayList<String> keys = (ArrayList<String>) connection.getFromServer().readObject();
+            connection.getSocket().close();
+            for (String key : keys) {
+                if (key.contentEquals(id))
+                    return ID_EXISTS;
+            }
+            //Create object to send to server
             productObject.put("name", products[0].name);
             productObject.put("id", id);
             productObject.put("quantity", products[0].quantity);
             productObject.put("shelf", products[0].shelf);
-
-            //Server connection
-            ServerConnection connection = new ServerConnection();
-            ObjectOutputStream toServer = connection.getToServer();
+            //Server connection to add product
+            connection = new ServerConnection();
+            toServer = connection.getToServer();
             //Request type
             toServer.writeObject(ServerRequests.addProduct.toString());
             //Send the product object.
@@ -67,7 +73,7 @@ public class AddProductTask extends AsyncTask<Product, Void, Integer> {
             toServer.writeObject(uid);
             success = SUCCESS;
             connection.getSocket().close();
-        } catch (IOException | JSONException e) {
+        } catch (IOException | JSONException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return success;

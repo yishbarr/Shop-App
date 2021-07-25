@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:labelFor="@id/productNameField"
-            android:maxLength="12"
             android:text="@string/product_name_field"
             android:textSize="16sp" />
 
@@ -30,6 +29,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
+            android:maxLength="12"
             tools:ignore="Autofill" />
 
         <TextView

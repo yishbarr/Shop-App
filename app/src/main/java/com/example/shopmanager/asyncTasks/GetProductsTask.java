@@ -27,22 +27,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.Map;
 
 public class GetProductsTask extends AsyncTask<Void, Void, Map<String, Map<String, String>>> {
     private final WeakReference<Context> safeContext;
     private final WeakReference<TableLayout> safeTable;
     private final WeakReference<Resources> safeResources;
-    private final WeakReference<List<String>> safeUsedIds;
     private final String uid;
 
-    public GetProductsTask(Context context, TableLayout table, Resources resources, String uid, List<String> usedIds) {
+    public GetProductsTask(Context context, TableLayout table, Resources resources, String uid) {
         super();
         safeContext = new WeakReference<>(context);
         this.safeTable = new WeakReference<>(table);
         this.safeResources = new WeakReference<>(resources);
-        this.safeUsedIds = new WeakReference<>(usedIds);
         this.uid = uid;
     }
 
@@ -93,7 +90,6 @@ public class GetProductsTask extends AsyncTask<Void, Void, Map<String, Map<Strin
                         case "id":
                             textArr[0] = text;
                             intent.putExtra("id", prop);
-                            safeUsedIds.get().add(prop);
                             break;
                         case "name":
                             textArr[1] = text;

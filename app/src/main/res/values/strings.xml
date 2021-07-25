@@ -17,7 +17,7 @@
     <string name="update_product_button">Update Product</string>
 
     <string name="add_product_success">Successfully added product.</string>
-    <string name="add_product_failure">Failed to add product. Check your connection or for duplicate IDs.</string>
+    <string name="add_product_failure">Failed to add product. Check your connection.</string>
     <string name="add_product_id_exists">Product ID already exists.</string>
     <string name="add_product_empty_field">Please validate the fields.</string>
 

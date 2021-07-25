@@ -1,7 +1,6 @@
 package com.example.shopmanager.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.shopmanager.R;
-import com.example.shopmanager.activities.MainActivity;
 import com.example.shopmanager.asyncTasks.GetProductsTask;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -47,16 +45,14 @@ public class ProductList extends Fragment {
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     public void onResume() {
-        MainActivity activity = (MainActivity) getActivity();
         productsTable.removeAllViews();
         productsTable.addView(productsHeader);
         super.onResume();
         new GetProductsTask(getContext(),
                 productsTable,
                 getResources(),
-                Objects.requireNonNull(mAuth.getCurrentUser()).getUid(),
-                activity.getUsedIds())
+                Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                 .executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 }
