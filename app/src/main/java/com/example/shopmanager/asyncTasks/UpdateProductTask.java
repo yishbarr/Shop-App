@@ -46,7 +46,7 @@ public class UpdateProductTask extends AsyncTask<Product, Void, Integer> {
             ServerConnection connection = new ServerConnection();
             ObjectOutputStream toServer = connection.getToServer();
             //Request type
-            toServer.writeObject(ServerRequests.updateProduct.toString());
+            toServer.writeObject(ServerRequests.addProduct.toString());
             toServer.writeObject(productObject.toString());
             toServer.writeObject(uid);
             success = SUCCESS;
