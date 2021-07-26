@@ -30,7 +30,7 @@ public class Logon extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         emailField = findViewById(R.id.userField);
         passwordField = findViewById(R.id.passwordField);
-        notification=findViewById(R.id.notification);
+        notification = findViewById(R.id.notification);
     }
 
     //Login with user input
